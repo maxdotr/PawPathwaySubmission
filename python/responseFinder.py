@@ -28,7 +28,7 @@ auth.set_access_token(key, secret)
 api = tweepy.API(auth)
 
 #configure write file
-FILE = "lastresponse.txt"
+FILE = "/home/maxdotr/zipped/lastresponse.txt"
 
 #store last seen tweet
 def read_last_seen(FILE_NAME):
@@ -60,7 +60,7 @@ def findResponses():
         tweetArray.append(tweet.user.screen_name)
         tweetArray.append(tweet.id)
         tweetArrayList.append(tweetArray)
-        splitTweet = tweet.text.split(",")
+        splitTweet = tweet.text.replace("@PawPathway ","").split(",")
         print("LOST DOG! Found in " + splitTweet[0] + "," + splitTweet[1] + ". Breed:" + splitTweet[2] + ". Description:" + splitTweet[3] + ". Turned over to animal control:" + splitTweet[4] + ". Please contact @" + userID + " for more information.")
         api.update_status("LOST DOG! Found in " + splitTweet[0] + "," + splitTweet[1] + ". Breed:" + splitTweet[2] + ". Description:" + splitTweet[3] + ". Turned over to animal control:" + splitTweet[4] + ". Please contact @" + userID + " for more information.")
 
@@ -82,5 +82,6 @@ def findResponses():
 #execute
 while True:
     findResponses()
-    time.sleep(60)
+    time.sleep(600)
+    print("Ran")
 

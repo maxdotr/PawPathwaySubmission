@@ -17,7 +17,7 @@ auth.set_access_token(key, secret)
 api = tweepy.API(auth)
 
 #configure read and write file
-FILE = "lastseen.txt"
+FILE = "/home/maxdotr/zipped/lastseen.txt"
 
 #read last seen tweet
 def read_last_seen(FILE_NAME):
@@ -34,14 +34,15 @@ def store_last_seen(FILE_NAME, last_seen_id):
     return
 
 #configure parameters for finding tweets
-hashtag = "#lostdog10"
-tweetNumber = 10
+hashtag = "lost dog near OR #lostdog OR #founddog -filter:retweets -filter:replies -filter:quote"
+tweetNumber = 100
 
 #make and send tweets to prospective lost dog finders/owners
 def makeTweetsArray():
     tweetArrayList = []
-    tweets = api.search_tweets(hashtag,since_id=read_last_seen(FILE), count=tweetNumber)
+    tweets = api.search_tweets(hashtag,since_id=read_last_seen(FILE),count=tweetNumber)
     for tweet in reversed(tweets):
+        api.retweet(tweet.id)
         userID = tweet.user.screen_name
         inResponseTo = tweet.id
         store_last_seen(FILE, tweet.id)
@@ -50,11 +51,11 @@ def makeTweetsArray():
         tweetArray.append(tweet.user.screen_name)
         tweetArray.append(tweet.id)
         tweetArrayList.append(tweetArray)
-        api.update_status("@" + (userID) + " Did you find/lose a dog? Please reply to this tweet in the provided format and we'll repost it on our page and website! Format: city name, zipcode/postal code, breed, description, turned over to animal control?(Y/N). Thanks!", in_reply_to_status_id=inResponseTo)
+        api.update_status("@" + (userID) + " Did you find/lose a dog? Please reply to this tweet in the provided format and we'll repost it on our page and website! Format: city name, zipcode/postal code, breed, description, turned over to animal control?(Y/N). Thanks! (Do not include extra commas", in_reply_to_status_id=inResponseTo)
     print(tweetArrayList)
 
 #execute
 while True:
     makeTweetsArray()
-    time.sleep(60)
-
+    time.sleep(600)
+    print("RAN")

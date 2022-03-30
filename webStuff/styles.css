@@ -1,0 +1,46 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #18a1d6;
+}
+
+#main {
+    background-color: white;
+    box-shadow:2px 2px 5px;
+}
+
+.logo {
+    width: 25%;
+    height: 25%;
+    margin: 0%;
+}
+
+img {
+    align-self: center;
+    text-align: center;
+    align-content: center;
+}
+
+.center-all {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    vertical-align: center;
+}
+
+.select{
+    transition: 0.25s;
+    border-radius: 0%;
+    background-color: none;
+}
+
+.select:hover {
+    background-color: #00bfff;
+    border-radius: 10%;
+}
+
+
+footer {
+    background-color: #008abe;
+    ;
+}
+
